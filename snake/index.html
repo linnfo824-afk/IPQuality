@@ -6,91 +6,58 @@
 <title>贪吃蛇</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=ZCOOL+QingKe+HuangYou&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap">
 <style>
-/* Layout: a handheld console on the left carries the game; a quiet column on the right holds score, settings and rules. Stacks on phones. */
+/* Layout: the board is the hero on the left (score bar on top, grass field below); a narrow column on the right holds settings and rules. Stacks on phones with the board first. */
 :root {
-  --bg: #e7eaf0;
-  --surface: #f5f7fb;
-  --ink: #182033;
-  --muted: #5a647a;
-  --line: #c9d0dc;
-  --accent: #2d55c8;
-  --btn: #263556;
-  --btn-ink: #f2f5fb;
-  --shell: #263556;
-  --shell-hi: #3b4e7a;
-  --shell-edge: rgba(255, 255, 255, .14);
-  --shell-ink: #b8c3dc;
-  --shell-shadow: rgba(24, 32, 51, .38);
-  --bezel: #182034;
-  --key: #d8dde8;
-  --key-hi: #f5f7fb;
-  --key-ink: #1c2537;
-  --key-edge: #8792aa;
-  --lcd-bg: #a9b88f;
-  --lcd-on: #232d1f;
-  --lcd-ghost: rgba(35, 45, 31, .075);
-  --lcd-shade: rgba(10, 16, 8, .35);
-  --lcd-glow: rgba(169, 184, 143, 0);
+  --bg: #eef2e8;
+  --surface: #ffffff;
+  --ink: #1f2b1b;
+  --muted: #5f6c59;
+  --line: #d4ddca;
+  --accent: #3f6d22;
+  --accent-ink: #ffffff;
+  --focus: #2f6fd6;
+  --shadow: rgba(31, 52, 18, .45);
 
-  --font-display: "ZCOOL QingKe HuangYou", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  /* The game world keeps one look in both themes. */
+  --frame: #578a34;
+  --bar: #4a752c;
+  --bar-ink: #ffffff;
+  --bar-btn: rgba(255, 255, 255, .14);
+  --bar-btn-hover: rgba(255, 255, 255, .24);
+  --scrim: rgba(28, 50, 14, .58);
+  --cta: #ffc93c;
+  --cta-edge: #d99a12;
+  --cta-ink: #2b2100;
+
+  --font-display: "ZCOOL KuaiLe", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-body: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, sans-serif;
-  --font-pixel: "Silkscreen", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
-/* Dark theme: the room goes dark and the LCD backlight comes on. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f131b;
-    --surface: #171d29;
-    --ink: #e3e8f2;
-    --muted: #97a2b7;
-    --line: #2a3345;
-    --accent: #8fb0ff;
-    --btn: #8fb0ff;
-    --btn-ink: #0f1625;
-    --shell: #22304e;
-    --shell-hi: #33456e;
-    --shell-edge: rgba(255, 255, 255, .10);
-    --shell-ink: #a8b4cf;
-    --shell-shadow: rgba(0, 0, 0, .6);
-    --bezel: #111827;
-    --key: #3b4766;
-    --key-hi: #4e5b7e;
-    --key-ink: #e6ebf5;
-    --key-edge: #141a27;
-    --lcd-bg: #8fcf6c;
-    --lcd-on: #132510;
-    --lcd-ghost: rgba(19, 37, 16, .09);
-    --lcd-shade: rgba(0, 0, 0, .25);
-    --lcd-glow: rgba(143, 207, 108, .28);
+    --bg: #11170f;
+    --surface: #1a2317;
+    --ink: #e5ecdf;
+    --muted: #9ba895;
+    --line: #2d3a28;
+    --accent: #9ccc65;
+    --accent-ink: #14210c;
+    --focus: #8ab4ff;
+    --shadow: rgba(0, 0, 0, .7);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0f131b;
-  --surface: #171d29;
-  --ink: #e3e8f2;
-  --muted: #97a2b7;
-  --line: #2a3345;
-  --accent: #8fb0ff;
-  --btn: #8fb0ff;
-  --btn-ink: #0f1625;
-  --shell: #22304e;
-  --shell-hi: #33456e;
-  --shell-edge: rgba(255, 255, 255, .10);
-  --shell-ink: #a8b4cf;
-  --shell-shadow: rgba(0, 0, 0, .6);
-  --bezel: #111827;
-  --key: #3b4766;
-  --key-hi: #4e5b7e;
-  --key-ink: #e6ebf5;
-  --key-edge: #141a27;
-  --lcd-bg: #8fcf6c;
-  --lcd-on: #132510;
-  --lcd-ghost: rgba(19, 37, 16, .09);
-  --lcd-shade: rgba(0, 0, 0, .25);
-  --lcd-glow: rgba(143, 207, 108, .28);
+  --bg: #11170f;
+  --surface: #1a2317;
+  --ink: #e5ecdf;
+  --muted: #9ba895;
+  --line: #2d3a28;
+  --accent: #9ccc65;
+  --accent-ink: #14210c;
+  --focus: #8ab4ff;
+  --shadow: rgba(0, 0, 0, .7);
   color-scheme: dark;
 }
 
@@ -104,293 +71,317 @@ body {
   font: 15px/1.65 var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 
 .wrap {
-  max-width: 1000px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding-block: 40px 56px;
+  padding-block: 32px 56px;
   padding-inline: 16px;
   display: grid;
-  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
-  gap: 56px;
+  grid-template-columns: minmax(0, 640px) minmax(0, 320px);
+  gap: 48px;
   align-items: start;
   justify-content: center;
 }
-@media (max-width: 840px) {
-  .wrap { grid-template-columns: minmax(0, 440px); gap: 36px; padding-block: 20px 40px; }
-}
-@media (max-width: 440px) {
-  .device { padding: 16px 14px 24px; border-radius: 34px 34px 54px 54px / 26px 26px 48px 48px; }
-  .bezel { padding: 8px; }
-  .lcd { padding: 6px; }
+@media (max-width: 920px) {
+  .wrap { grid-template-columns: minmax(0, 640px); gap: 32px; padding-block: 16px 40px; }
 }
 
-/* ---------- The handheld ---------- */
-.device {
-  padding: 20px 22px 30px;
-  border-radius: 46px 46px 70px 70px / 34px 34px 60px 60px;
-  background: linear-gradient(170deg, var(--shell-hi), var(--shell) 42%);
-  box-shadow:
-    inset 0 1px 0 var(--shell-edge),
-    inset 0 -10px 24px var(--shell-shadow),
-    0 24px 48px -24px var(--shell-shadow);
-  color: var(--shell-ink);
+/* ---------- Game ---------- */
+.game { min-width: 0; display: grid; gap: 18px; justify-items: center; }
+.board-card {
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--frame);
+  box-shadow: 0 22px 44px -24px var(--shadow);
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
-.device-top { display: flex; flex-direction: column; align-items: center; gap: 9px; margin-bottom: 14px; }
-.speaker {
-  width: 64px; height: 6px; border-radius: 3px;
-  background: repeating-linear-gradient(90deg, var(--bezel) 0 4px, transparent 4px 7px);
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 9px 12px 9px 16px;
+  background: var(--bar);
+  color: var(--bar-ink);
 }
-.brand { font: 12px/1 var(--font-pixel); letter-spacing: .5em; padding-left: .5em; }
-.bezel {
-  background: var(--bezel);
-  border-radius: 16px 16px 22px 22px;
-  padding: 12px;
-  box-shadow: inset 0 2px 6px var(--shell-shadow);
-}
-.lcd {
-  background: var(--lcd-bg);
-  border-radius: 5px;
-  padding: 8px;
-  box-shadow: inset 0 2px 7px var(--lcd-shade), 0 0 28px var(--lcd-glow);
-  cursor: pointer;
-  touch-action: none;
-}
-.lcd canvas { display: block; margin-inline: auto; max-width: 100%; }
-.hint { margin: 12px 0 0; min-height: 1.65em; text-align: center; font-size: 13px; }
-
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-areas: ". up ." "left mid right" ". down .";
-  gap: 8px 16px;
-  max-width: 300px;
-  margin: 16px auto 0;
-}
-.key {
-  position: relative;
-  height: 50px;
+.count { display: flex; align-items: center; gap: 8px; font: 700 21px/1 var(--font-body); font-variant-numeric: tabular-nums; }
+.count svg { width: 26px; height: 26px; flex: none; }
+.count.bump svg { animation: bump .32s ease-out; }
+@keyframes bump { 40% { transform: scale(1.28) rotate(-8deg); } }
+.bar-actions { margin-left: auto; display: flex; gap: 6px; }
+.icon-btn {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
   padding: 0;
   border: 0;
-  border-radius: 50% / 48%;
-  background: linear-gradient(180deg, var(--key-hi), var(--key) 55%);
-  color: var(--key-ink);
-  box-shadow: 0 3px 0 var(--key-edge), 0 6px 10px -5px var(--shell-shadow);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font: inherit;
+  border-radius: 9px;
+  background: var(--bar-btn);
+  color: var(--bar-ink);
   cursor: pointer;
-  touch-action: manipulation;
-  transition: transform 60ms ease-out, box-shadow 60ms ease-out;
 }
-.key:active, .key.is-pressed {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--key-edge), 0 2px 4px -2px var(--shell-shadow);
-}
-.key:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.key-up { grid-area: up; }
-.key-left { grid-area: left; }
-.key-mid { grid-area: mid; }
-.key-right { grid-area: right; }
-.key-down { grid-area: down; }
-.key-label { display: flex; align-items: baseline; gap: 4px; }
-.key-num { font: 17px/1 var(--font-pixel); }
-.key-abc { font: 9px/1 var(--font-pixel); letter-spacing: .06em; opacity: .65; }
-.key-icon { width: 10px; height: 8px; fill: currentColor; opacity: .75; }
-.key-mid .key-icon { width: 16px; }
-.key-down .key-icon { transform: rotate(180deg); }
-.key-left .key-icon { transform: rotate(-90deg); }
-.key-right .key-icon { transform: rotate(90deg); }
-/* The tactile nub on the 5 key. */
-.key-mid::before {
-  content: "";
+.icon-btn:hover { background: var(--bar-btn-hover); }
+.icon-btn:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; }
+.icon-btn svg { width: 20px; height: 20px; }
+
+.stage { position: relative; padding: 10px; touch-action: none; cursor: pointer; }
+.stage canvas { display: block; border-radius: 3px; }
+.overlay {
   position: absolute;
-  top: 6px;
-  width: 10px; height: 2px;
-  border-radius: 1px;
-  background: var(--key-edge);
-  opacity: .7;
-}
-
-/* ---------- Side column ---------- */
-.panel { display: flex; flex-direction: column; gap: 28px; min-width: 0; padding-top: 6px; }
-.title h1 {
-  margin: 0;
-  font: 400 52px/1.05 var(--font-display);
-  letter-spacing: .06em;
-  text-wrap: balance;
-}
-.lede { margin: 10px 0 0; color: var(--muted); max-width: 32em; }
-
-.stats {
-  margin: 0;
+  inset: 10px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-block: 1px solid var(--line);
+  place-items: center;
+  padding: 16px;
+  border-radius: 3px;
+  background: var(--scrim);
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+  color: var(--bar-ink);
+  text-align: center;
+  cursor: default;
 }
-.stats div { padding-block: 14px; min-width: 0; }
-.stats div + div { padding-left: 16px; border-left: 1px solid var(--line); }
-.stats dt { font-size: 12px; color: var(--muted); letter-spacing: .08em; }
-.stats dd { margin: 4px 0 0; font: 26px/1.1 var(--font-pixel); font-variant-numeric: tabular-nums; }
-
-.actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.btn {
-  min-width: 112px;
-  padding: 12px 20px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--ink);
+.ov-card { display: grid; gap: 14px; justify-items: center; }
+.ov-title { margin: 0; font: 400 32px/1.1 var(--font-display); letter-spacing: .04em; text-wrap: balance; }
+.ov-sub { margin: 0; font-size: 14px; opacity: .92; }
+.ov-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.play {
+  padding: 14px 30px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cta);
+  color: var(--cta-ink);
+  font: 700 17px/1 var(--font-body);
+  box-shadow: 0 4px 0 var(--cta-edge);
+  cursor: pointer;
+}
+.play:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--cta-edge); }
+.play:focus-visible, .ghost:focus-visible { outline: 2px solid var(--bar-ink); outline-offset: 3px; }
+.ghost {
+  padding: 13px 22px;
+  border: 1px solid var(--bar-btn-hover);
+  border-radius: 999px;
+  background: var(--bar-btn);
+  color: var(--bar-ink);
   font: 600 15px/1 var(--font-body);
   cursor: pointer;
 }
-.btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
-.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.result { display: flex; gap: 32px; font: 700 36px/1 var(--font-body); font-variant-numeric: tabular-nums; }
+.result span { display: flex; align-items: center; gap: 10px; }
+.result svg { width: 40px; height: 40px; }
+.new-best {
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--cta);
+  color: var(--cta-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
 
-.settings { display: grid; gap: 22px; }
+.dpad {
+  display: none;
+  grid-template-columns: repeat(3, 60px);
+  grid-template-rows: repeat(3, 54px);
+  grid-template-areas: ". up ." "left mid right" ". down .";
+  gap: 6px;
+}
+@media (hover: none) and (pointer: coarse) { .dpad { display: grid; } }
+.pad {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 3px 0 var(--line);
+  touch-action: manipulation;
+  cursor: pointer;
+}
+.pad:active, .pad.is-pressed { transform: translateY(2px); box-shadow: 0 1px 0 var(--line); }
+.pad svg { width: 22px; height: 22px; }
+.pad-up { grid-area: up; }
+.pad-left { grid-area: left; }
+.pad-mid { grid-area: mid; }
+.pad-right { grid-area: right; }
+.pad-down { grid-area: down; }
+
+/* ---------- Side column ---------- */
+.panel { display: flex; flex-direction: column; gap: 26px; min-width: 0; padding-top: 4px; }
+.title h1 { margin: 0; font: 400 50px/1.05 var(--font-display); letter-spacing: .06em; color: var(--accent); }
+.lede { margin: 10px 0 0; color: var(--muted); max-width: 32em; }
+
+.settings { display: grid; gap: 20px; }
 .field { border: 0; margin: 0; padding: 0; min-width: 0; }
-.field legend { padding: 0; margin-bottom: 4px; font-weight: 600; }
-.field-note { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+.field legend { padding: 0; margin-bottom: 8px; font-weight: 600; }
 .seg { display: flex; flex-wrap: wrap; gap: 6px; }
-.seg-level { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 5px; max-width: 380px; }
 .seg label { position: relative; display: block; min-width: 0; }
 .seg input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .seg span {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
+  min-width: 52px;
   height: 36px;
   padding-inline: 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--surface);
   font-size: 14px;
+  white-space: nowrap;
 }
-.seg-level span { padding-inline: 0; font-family: var(--font-pixel); }
-.seg input:checked + span { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
-.seg input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.seg small { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.seg input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.seg input:checked + span small { color: inherit; opacity: .8; }
+.seg input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
 .field:disabled .seg span { opacity: .5; }
 .field:disabled .seg input { cursor: not-allowed; }
-.edge { display: inline-block; width: 18px; border-top: 2px solid currentColor; }
-.edge-dotted { border-top-style: dotted; }
-
-.switch { position: relative; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; cursor: pointer; justify-self: start; }
-.switch input { position: absolute; left: 0; width: 40px; height: 22px; margin: 0; opacity: 0; cursor: pointer; }
-.track { position: relative; width: 40px; height: 22px; border-radius: 11px; background: var(--line); transition: background .15s; }
-.track::after {
-  content: "";
-  position: absolute;
-  top: 3px; left: 3px;
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  background: var(--surface);
-  box-shadow: 0 1px 2px var(--shell-shadow);
-  transition: transform .15s;
+.edge { display: inline-block; width: 16px; border-top: 2px solid currentColor; }
+.edge-dashed { border-top-style: dashed; }
+.swatches { gap: 10px; }
+.swatches span {
+  min-width: 0;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 3px solid var(--surface);
+  background: var(--sw);
+  box-shadow: 0 0 0 1px var(--line);
 }
-.switch input:checked + .track { background: var(--btn); }
-.switch input:checked + .track::after { transform: translateX(18px); }
-.switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
-.lock-note { margin: -8px 0 0; font-size: 13px; color: var(--muted); }
+.swatches input:checked + span { background: var(--sw); border-color: var(--surface); box-shadow: 0 0 0 2px var(--ink); }
+.lock-note { margin: -6px 0 0; font-size: 13px; color: var(--muted); }
 
-.rules { display: grid; gap: 22px; padding-top: 22px; border-top: 1px solid var(--line); }
+.rules { display: grid; gap: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
 .rules h2 { margin: 0 0 8px; font-size: 15px; }
-.controls { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 16px; font-size: 14px; }
+.controls { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 14px; font-size: 14px; }
 .controls dt { color: var(--muted); }
 .controls dd { margin: 0; }
-.rules ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 14px; max-width: 36em; }
+.rules ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 14px; }
 kbd {
   display: inline-block;
-  min-width: 1.6em;
-  margin: 1px 1px;
-  padding: 1px 6px;
+  min-width: 1.7em;
+  margin: 1px;
+  padding: 0 6px;
   border: 1px solid var(--line);
   border-bottom-width: 2px;
   border-radius: 5px;
   background: var(--surface);
-  font: 12px/1.5 var(--font-pixel);
+  font: 600 12px/1.6 var(--font-body);
   text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .key, .track, .track::after { transition: none; }
+  .count.bump svg { animation: none; }
 }
 </style>
 </head>
 <body>
 <main class="wrap">
-  <section class="device" aria-label="游戏机">
-    <div class="device-top">
-      <div class="speaker" aria-hidden="true"></div>
-      <div class="brand" aria-hidden="true">SNAKE</div>
-    </div>
-    <div class="bezel">
-      <div class="lcd" id="lcd">
-        <canvas id="screen" role="img" aria-label="贪吃蛇游戏屏幕"></canvas>
+  <section class="game" id="game" aria-label="游戏">
+    <div class="board-card">
+      <div class="bar">
+        <div class="count" id="score-box" title="本局吃到的苹果">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3c-1.7-1.3-4.7-1.5-6.4.5-2.1 2.4-1.6 7 .8 10.2 1.5 2 3.3 3.2 5.6 2.2 2.3 1 4.1-.2 5.6-2.2 2.4-3.2 2.9-7.8.8-10.2-1.7-2-4.7-1.8-6.4-.5z" fill="#e7471d"/><path d="M12 7.4c0-2 .7-3.6 2-4.6" stroke="#6b4a2b" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M13.2 5.3c1.2-2.2 3.6-2.9 5.6-2.3-.8 2-3.2 3.1-5.6 2.3z" fill="#5cbf2e"/><ellipse cx="8.4" cy="11" rx="1.1" ry="2" fill="#fff" opacity=".55" transform="rotate(25 8.4 11)"/></svg>
+          <span id="score">0</span>
+          <span class="sr-only">分</span>
+        </div>
+        <div class="count" title="当前设置下的最高分">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v1.6h3.2v2.6c0 2.7-2 4.8-4.6 5.1A5 5 0 0 1 13 15.6V18h3.2v3H7.8v-3H11v-2.4a5 5 0 0 1-2.6-3.3C5.8 12 3.8 9.9 3.8 7.2V4.6H7V3zm-1.4 3.4v.8c0 1.4.8 2.6 1.6 3.1-.1-1.2-.2-2.6-.2-3.9H5.6zm12.8 0H17c0 1.3-.1 2.7-.2 3.9.8-.5 1.6-1.7 1.6-3.1v-.8z" fill="#ffc93c"/></svg>
+          <span id="best">0</span>
+          <span class="sr-only">最高分</span>
+        </div>
+        <div class="bar-actions">
+          <button type="button" class="icon-btn" id="sound-btn" aria-pressed="true" aria-label="音效">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><g id="sound-on" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g id="sound-off" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" hidden><path d="m15.5 9.5 5 5m0-5-5 5"/></g></svg>
+          </button>
+          <button type="button" class="icon-btn" id="pause-btn" aria-label="暂停">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><g id="icon-pause"><rect x="6.5" y="5" width="3.6" height="14" rx="1" fill="currentColor"/><rect x="13.9" y="5" width="3.6" height="14" rx="1" fill="currentColor"/></g><path id="icon-play" d="M8 5.2v13.6L19 12z" fill="currentColor" hidden/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="stage" id="stage">
+        <canvas id="board" role="img" aria-label="贪吃蛇棋盘"></canvas>
+
+        <div class="overlay" id="ov-start">
+          <div class="ov-card">
+            <p class="ov-title">准备好了吗？</p>
+            <button type="button" class="play" data-act="toggle">开始游戏</button>
+            <p class="ov-sub" id="start-sub">或者直接按方向键出发</p>
+          </div>
+        </div>
+        <div class="overlay" id="ov-pause" hidden>
+          <div class="ov-card">
+            <p class="ov-title">暂停中</p>
+            <div class="ov-actions">
+              <button type="button" class="play" data-act="toggle">继续</button>
+              <button type="button" class="ghost" data-act="quit">结束本局</button>
+            </div>
+          </div>
+        </div>
+        <div class="overlay" id="ov-over" hidden>
+          <div class="ov-card">
+            <p class="ov-title" id="over-title">撞到了！</p>
+            <div class="result">
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3c-1.7-1.3-4.7-1.5-6.4.5-2.1 2.4-1.6 7 .8 10.2 1.5 2 3.3 3.2 5.6 2.2 2.3 1 4.1-.2 5.6-2.2 2.4-3.2 2.9-7.8.8-10.2-1.7-2-4.7-1.8-6.4-.5z" fill="#e7471d"/><path d="M12 7.4c0-2 .7-3.6 2-4.6" stroke="#6b4a2b" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M13.2 5.3c1.2-2.2 3.6-2.9 5.6-2.3-.8 2-3.2 3.1-5.6 2.3z" fill="#5cbf2e"/></svg><b id="r-score">0</b><span class="sr-only">分</span></span>
+              <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v1.6h3.2v2.6c0 2.7-2 4.8-4.6 5.1A5 5 0 0 1 13 15.6V18h3.2v3H7.8v-3H11v-2.4a5 5 0 0 1-2.6-3.3C5.8 12 3.8 9.9 3.8 7.2V4.6H7V3zm-1.4 3.4v.8c0 1.4.8 2.6 1.6 3.1-.1-1.2-.2-2.6-.2-3.9H5.6zm12.8 0H17c0 1.3-.1 2.7-.2 3.9.8-.5 1.6-1.7 1.6-3.1v-.8z" fill="#ffc93c"/></svg><b id="r-best">0</b><span class="sr-only">最高分</span></span>
+            </div>
+            <p class="new-best" id="r-new" hidden>新纪录！</p>
+            <button type="button" class="play" data-act="toggle">再玩一次</button>
+          </div>
+        </div>
       </div>
     </div>
-    <p class="hint" id="hint" aria-live="polite"></p>
-    <div class="keypad" id="keypad" role="group" aria-label="屏幕按键">
-      <button type="button" class="key key-up" data-dir="up" tabindex="-1" aria-label="向上（2）">
-        <span class="key-label"><span class="key-num">2</span><span class="key-abc">abc</span></span>
-        <svg class="key-icon" viewBox="0 0 10 8" aria-hidden="true"><path d="M5 0 10 8H0z"/></svg>
-      </button>
-      <button type="button" class="key key-left" data-dir="left" tabindex="-1" aria-label="向左（4）">
-        <span class="key-label"><span class="key-num">4</span><span class="key-abc">ghi</span></span>
-        <svg class="key-icon" viewBox="0 0 10 8" aria-hidden="true"><path d="M5 0 10 8H0z"/></svg>
-      </button>
-      <button type="button" class="key key-mid" data-action="toggle" tabindex="-1" aria-label="开始或暂停（5）">
-        <span class="key-label"><span class="key-num">5</span><span class="key-abc">jkl</span></span>
-        <svg class="key-icon" viewBox="0 0 16 8" aria-hidden="true"><path d="M0 0 6 4 0 8z M9 0h2.5v8H9z M13.5 0H16v8h-2.5z"/></svg>
-      </button>
-      <button type="button" class="key key-right" data-dir="right" tabindex="-1" aria-label="向右（6）">
-        <span class="key-label"><span class="key-num">6</span><span class="key-abc">mno</span></span>
-        <svg class="key-icon" viewBox="0 0 10 8" aria-hidden="true"><path d="M5 0 10 8H0z"/></svg>
-      </button>
-      <button type="button" class="key key-down" data-dir="down" tabindex="-1" aria-label="向下（8）">
-        <span class="key-label"><span class="key-num">8</span><span class="key-abc">tuv</span></span>
-        <svg class="key-icon" viewBox="0 0 10 8" aria-hidden="true"><path d="M5 0 10 8H0z"/></svg>
-      </button>
+
+    <div class="dpad" id="dpad" role="group" aria-label="方向键">
+      <button type="button" class="pad pad-up" data-dir="up" tabindex="-1" aria-label="向上"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="pad pad-left" data-dir="left" tabindex="-1" aria-label="向左"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="pad pad-mid" data-act="toggle" tabindex="-1" aria-label="开始或暂停"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6.5v11l8-5.5zM15.5 6.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
+      <button type="button" class="pad pad-right" data-dir="right" tabindex="-1" aria-label="向右"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="pad pad-down" data-dir="down" tabindex="-1" aria-label="向下"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
+    <p class="sr-only" id="status" aria-live="polite"></p>
   </section>
 
   <aside class="panel">
     <header class="title">
       <h1>贪吃蛇</h1>
-      <p class="lede">控制小蛇吃掉食物，每吃一个就长一节。撞到墙或者咬到自己，这局就结束了。</p>
+      <p class="lede">带着小蛇去吃红苹果。每吃一个就长一节，蛇越长，越难躲开自己。</p>
     </header>
 
-    <dl class="stats">
-      <div><dt>得分</dt><dd id="score">0</dd></div>
-      <div><dt>最高分</dt><dd id="best">0</dd></div>
-      <div><dt>长度</dt><dd id="length">4</dd></div>
-    </dl>
-
-    <div class="actions">
-      <button type="button" class="btn btn-primary" id="primary">开始游戏</button>
-      <button type="button" class="btn" id="quit" hidden>结束本局</button>
-    </div>
-
     <div class="settings">
-      <fieldset class="field" id="level-set">
-        <legend>等级</legend>
-        <p class="field-note">等级越高蛇跑得越快，每个食物的分数也越高。</p>
-        <div class="seg seg-level">
-          <label><input type="radio" name="level" id="level-1" value="1"><span>1</span></label>
-          <label><input type="radio" name="level" id="level-2" value="2"><span>2</span></label>
-          <label><input type="radio" name="level" id="level-3" value="3"><span>3</span></label>
-          <label><input type="radio" name="level" id="level-4" value="4"><span>4</span></label>
-          <label><input type="radio" name="level" id="level-5" value="5"><span>5</span></label>
-          <label><input type="radio" name="level" id="level-6" value="6"><span>6</span></label>
-          <label><input type="radio" name="level" id="level-7" value="7"><span>7</span></label>
-          <label><input type="radio" name="level" id="level-8" value="8"><span>8</span></label>
-          <label><input type="radio" name="level" id="level-9" value="9"><span>9</span></label>
+      <fieldset class="field" id="speed-set">
+        <legend>速度</legend>
+        <div class="seg">
+          <label><input type="radio" name="speed" id="speed-slow" value="slow"><span>慢</span></label>
+          <label><input type="radio" name="speed" id="speed-normal" value="normal"><span>普通</span></label>
+          <label><input type="radio" name="speed" id="speed-fast" value="fast"><span>快</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field" id="size-set">
+        <legend>地图大小</legend>
+        <div class="seg">
+          <label><input type="radio" name="size" id="size-s" value="s"><span>小 <small>10×9</small></span></label>
+          <label><input type="radio" name="size" id="size-m" value="m"><span>中 <small>17×15</small></span></label>
+          <label><input type="radio" name="size" id="size-l" value="l"><span>大 <small>24×21</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field" id="apples-set">
+        <legend>苹果数量</legend>
+        <div class="seg">
+          <label><input type="radio" name="apples" id="apples-1" value="1"><span>1 个</span></label>
+          <label><input type="radio" name="apples" id="apples-3" value="3"><span>3 个</span></label>
+          <label><input type="radio" name="apples" id="apples-5" value="5"><span>5 个</span></label>
         </div>
       </fieldset>
 
@@ -398,17 +389,22 @@ kbd {
         <legend>边界</legend>
         <div class="seg">
           <label><input type="radio" name="walls" id="walls-solid" value="solid"><span><i class="edge" aria-hidden="true"></i>撞墙结束</span></label>
-          <label><input type="radio" name="walls" id="walls-wrap" value="wrap"><span><i class="edge edge-dotted" aria-hidden="true"></i>穿墙而过</span></label>
+          <label><input type="radio" name="walls" id="walls-wrap" value="wrap"><span><i class="edge edge-dashed" aria-hidden="true"></i>穿墙而过</span></label>
         </div>
       </fieldset>
 
-      <label class="switch" for="sound">
-        <input type="checkbox" id="sound" role="switch">
-        <span class="track" aria-hidden="true"></span>
-        音效
-      </label>
+      <fieldset class="field" id="skin-set">
+        <legend>蛇的颜色</legend>
+        <div class="seg swatches">
+          <label><input type="radio" name="skin" id="skin-blue" value="blue" aria-label="蓝色"><span style="--sw:#4e7cf6"></span></label>
+          <label><input type="radio" name="skin" id="skin-purple" value="purple" aria-label="紫色"><span style="--sw:#9466ec"></span></label>
+          <label><input type="radio" name="skin" id="skin-orange" value="orange" aria-label="橙色"><span style="--sw:#f6872c"></span></label>
+          <label><input type="radio" name="skin" id="skin-pink" value="pink" aria-label="粉色"><span style="--sw:#ee5f9b"></span></label>
+          <label><input type="radio" name="skin" id="skin-teal" value="teal" aria-label="青色"><span style="--sw:#1fb5b0"></span></label>
+        </div>
+      </fieldset>
 
-      <p class="lock-note" id="lock-note" hidden>本局进行中，结束后才能调整等级和边界。</p>
+      <p class="lock-note" id="lock-note" hidden>本局进行中。速度、地图、苹果数量和边界要等这局结束后才能改，颜色随时可以换。</p>
     </div>
 
     <section class="rules">
@@ -416,20 +412,22 @@ kbd {
         <h2>操作</h2>
         <dl class="controls">
           <dt>转向</dt>
-          <dd><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 或 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>，也可以用数字键 <kbd>2</kbd><kbd>4</kbd><kbd>6</kbd><kbd>8</kbd>。手机上在屏幕上滑动。</dd>
-          <dt>开始 / 暂停</dt>
-          <dd><kbd>空格</kbd> 或 <kbd>5</kbd>。轻点屏幕也可以开始或继续。</dd>
+          <dd><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 或 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dd>
+          <dt>手机</dt>
+          <dd>在棋盘上滑动，或用棋盘下方的方向键</dd>
+          <dt>暂停 / 继续</dt>
+          <dd><kbd>空格</kbd> 或 <kbd>P</kbd></dd>
           <dt>结束本局</dt>
           <dd><kbd>Esc</kbd></dd>
         </dl>
       </div>
       <div>
-        <h2>计分</h2>
+        <h2>规则</h2>
         <ul>
-          <li>每吃一个食物，得分等于当前等级：等级 1 得 1 分，等级 9 得 9 分。</li>
-          <li>每吃 5 个食物，场上会出现一只限时小虫。屏幕右上角显示它现在值多少分，分值随时间下降，快消失时会闪烁。</li>
-          <li>撞墙模式下边框是实线，碰到就结束；穿墙模式下边框是虚线，从一边出去会从对边回来。咬到自己总会结束。</li>
-          <li>最高分保存在这台设备的浏览器里。</li>
+          <li>每吃一个苹果得 1 分，蛇也会长一节。</li>
+          <li>撞墙模式下碰到边框就结束；穿墙模式的棋盘边缘是虚线，从一边出去会从对边回来。</li>
+          <li>咬到自己的身体总会结束。</li>
+          <li>最高分按速度、地图、苹果数量和边界分别记录，保存在这台设备的浏览器里。</li>
         </ul>
       </div>
     </section>
@@ -440,108 +438,117 @@ kbd {
 (() => {
   'use strict';
 
-  // ---- Screen geometry, in LCD dots ----
-  const COLS = 20, ROWS = 16, CELL = 5;      // play field: 20 × 16 cells, each cell 5 × 5 dots
-  const FX = 2, FY = 9;                      // field origin: 1-dot border + 1-dot gap, below a 7-row status bar
-  const W = COLS * CELL + 4;                 // 104 dots
-  const H = FY + ROWS * CELL + 2;            // 91 dots
-
-  const SPEEDS = [260, 220, 185, 155, 130, 110, 92, 78, 66]; // ms per step, levels 1–9
-  const BONUS_EVERY = 5, BONUS_TTL = 30, BLINK_MS = 1200, RESTART_LOCK_MS = 400;
+  const SIZES = { s: [10, 9], m: [17, 15], l: [24, 21] };
+  const SPEEDS = { slow: 190, normal: 135, fast: 90 };   // ms per cell
+  const SKINS = {
+    blue:   { body: '#4e7cf6', edge: '#2f57c8', spot: '#3d69e2' },
+    purple: { body: '#9466ec', edge: '#6a3fc0', spot: '#7f52dc' },
+    orange: { body: '#f6872c', edge: '#c45f17', spot: '#e57220' },
+    pink:   { body: '#ee5f9b', edge: '#be3a72', spot: '#dc4c88' },
+    teal:   { body: '#1fb5b0', edge: '#12807c', spot: '#17a09b' },
+  };
+  const GRASS = ['#aad751', '#a2d149'];
+  const APPLE = { light: '#ff8466', mid: '#e7471d', dark: '#b3240f', leaf: '#5cbf2e', stem: '#6b4a2b' };
+  const SPARKS = ['#e7471d', '#ff8466', '#5cbf2e', '#ffffff', '#ffc93c'];
+  const EYE_INK = '#1b1f2a', MOUTH = '#7d1d2c', TONGUE = '#e5394f';
+  const BODY_R = 0.45, HEAD_R = 0.5, TAPER = 2;            // in cells
+  const DEATH_MS = 900, RESTART_LOCK_MS = 600;
+  const TAU = Math.PI * 2;
 
   const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
   const OPPOSITE = { up: 'down', down: 'up', left: 'right', right: 'left' };
   const KEYMAP = {
-    ArrowUp: 'up', KeyW: 'up', Digit2: 'up', Numpad2: 'up',
-    ArrowDown: 'down', KeyS: 'down', Digit8: 'down', Numpad8: 'down',
-    ArrowLeft: 'left', KeyA: 'left', Digit4: 'left', Numpad4: 'left',
-    ArrowRight: 'right', KeyD: 'right', Digit6: 'right', Numpad6: 'right',
+    ArrowUp: 'up', KeyW: 'up', ArrowDown: 'down', KeyS: 'down',
+    ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right',
   };
-  const TOGGLE_KEYS = new Set(['Space', 'Enter', 'NumpadEnter', 'Digit5', 'Numpad5', 'KeyP']);
-
-  // 3 × 5 LCD font
-  const FONT = {
-    '0': ['###', '#.#', '#.#', '#.#', '###'], '1': ['.#.', '##.', '.#.', '.#.', '###'],
-    '2': ['###', '..#', '###', '#..', '###'], '3': ['###', '..#', '###', '..#', '###'],
-    '4': ['#.#', '#.#', '###', '..#', '..#'], '5': ['###', '#..', '###', '..#', '###'],
-    '6': ['###', '#..', '###', '#.#', '###'], '7': ['###', '..#', '..#', '.#.', '.#.'],
-    '8': ['###', '#.#', '###', '#.#', '###'], '9': ['###', '#.#', '###', '..#', '###'],
-    A: ['.#.', '#.#', '###', '#.#', '#.#'], B: ['##.', '#.#', '##.', '#.#', '##.'],
-    E: ['###', '#..', '##.', '#..', '###'], G: ['.##', '#..', '#.#', '#.#', '.##'],
-    I: ['###', '.#.', '.#.', '.#.', '###'], K: ['#.#', '#.#', '##.', '#.#', '#.#'],
-    L: ['#..', '#..', '#..', '#..', '###'], M: ['#.#', '###', '###', '#.#', '#.#'],
-    N: ['##.', '#.#', '#.#', '#.#', '#.#'], O: ['.#.', '#.#', '#.#', '#.#', '.#.'],
-    P: ['##.', '#.#', '##.', '#..', '#..'], R: ['##.', '#.#', '##.', '#.#', '#.#'],
-    S: ['.##', '#..', '.#.', '..#', '##.'], T: ['###', '.#.', '.#.', '.#.', '.#.'],
-    U: ['#.#', '#.#', '#.#', '#.#', '###'], V: ['#.#', '#.#', '#.#', '#.#', '.#.'],
-    W: ['#.#', '#.#', '###', '###', '#.#'], Y: ['#.#', '#.#', '.#.', '.#.', '.#.'],
-    C: ['.##', '#..', '#..', '#..', '.##'], '!': ['.#.', '.#.', '.#.', '...', '.#.'],
-  };
-  const FOOD = ['.....', '..#..', '.#.#.', '..#..', '.....'];
-  const BUG = ['#.#.#', '.###.', '##.##', '.###.', '#.#.#'];
-  const EYE = { right: [3, 1], up: [1, 1], left: [1, 3], down: [3, 3] };
-  const MOUTH = { right: [4, 2], left: [0, 2], up: [2, 0], down: [2, 4] };
+  const TOGGLE_KEYS = new Set(['Space', 'Enter', 'NumpadEnter', 'KeyP']);
 
   // ---- DOM ----
   const $ = (id) => document.getElementById(id);
-  const canvas = $('screen'), lcd = $('lcd'), keypad = $('keypad');
+  const gameCol = $('game'), stage = $('stage'), canvas = $('board'), dpad = $('dpad');
   const ctx = canvas.getContext('2d');
-  const ghost = document.createElement('canvas');
+  const boardCache = document.createElement('canvas');
   const el = {
-    hint: $('hint'), score: $('score'), best: $('best'), length: $('length'),
-    primary: $('primary'), quit: $('quit'), levelSet: $('level-set'), wallSet: $('wall-set'),
-    sound: $('sound'), lockNote: $('lock-note'),
+    score: $('score'), scoreBox: $('score-box'), best: $('best'), status: $('status'),
+    soundBtn: $('sound-btn'), soundOn: $('sound-on'), soundOff: $('sound-off'),
+    pauseBtn: $('pause-btn'), iconPause: $('icon-pause'), iconPlay: $('icon-play'),
+    ovStart: $('ov-start'), ovPause: $('ov-pause'), ovOver: $('ov-over'), startSub: $('start-sub'),
+    overTitle: $('over-title'), rScore: $('r-score'), rBest: $('r-best'), rNew: $('r-new'),
+    lockNote: $('lock-note'),
   };
+  const lockable = ['speed-set', 'size-set', 'apples-set', 'wall-set'].map($);
   const coarse = matchMedia('(pointer: coarse)').matches;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bodyFont = getComputedStyle(document.body).fontFamily;
 
   // ---- Storage (per-browser conveniences only) ----
   const store = {
     get(key, fallback) {
-      try { const v = localStorage.getItem('snake.' + key); return v === null ? fallback : JSON.parse(v); }
+      try { const v = localStorage.getItem('snake2.' + key); return v === null ? fallback : JSON.parse(v); }
       catch (e) { return fallback; }
     },
     set(key, value) {
-      try { localStorage.setItem('snake.' + key, JSON.stringify(value)); } catch (e) { /* storage unavailable */ }
+      try { localStorage.setItem('snake2.' + key, JSON.stringify(value)); } catch (e) { /* storage unavailable */ }
     },
   };
 
   // ---- State ----
-  const settings = { level: 3, wrap: false, sound: true };
-  let best = 0;
+  const settings = { speed: 'normal', size: 'm', apples: 1, wrap: false, skin: 'blue', sound: true };
+  let bests = {};
   let game = null;
-  let phase = 'ready';           // ready | running | paused | over
-  let overAt = -Infinity;
-  let acc = 0, last = 0, dirty = true, blinkKey = -1;
+  let phase = 'ready';              // ready | running | paused | over
+  let overAt = -Infinity, overShown = false;
+  let acc = 0, last = 0;
+  let cols = 17, rows = 15, C = 30, W = 510, H = 450, dpr = 1;   // C = cell size in CSS px
+  let headAng = 0, shakeUntil = 0, renderT = 1;
+  const particles = [], floaters = [], bulges = [];
 
-  const clampLevel = (n) => Math.min(9, Math.max(1, Math.round(Number(n)) || 3));
-  const pad4 = (n) => String(n).padStart(4, '0');
+  const settingsKey = () => `${settings.speed}-${settings.size}-${settings.apples}-${settings.wrap ? 'wrap' : 'wall'}`;
+  const bestNow = () => bests[settingsKey()] || 0;
+
+  function sanitize(s) {
+    if (!s) return;
+    if (s.speed in SPEEDS) settings.speed = s.speed;
+    if (s.size in SIZES) settings.size = s.size;
+    if ([1, 3, 5].includes(Number(s.apples))) settings.apples = Number(s.apples);
+    if (typeof s.wrap === 'boolean') settings.wrap = s.wrap;
+    if (s.skin in SKINS) settings.skin = s.skin;
+    if (typeof s.sound === 'boolean') settings.sound = s.sound;
+  }
 
   function newGame() {
-    const y = ROWS >> 1;
+    [cols, rows] = SIZES[settings.size];
+    const y = rows >> 1;
+    const hx = Math.max(3, Math.floor(cols / 4) + 1);
     const snake = [];
-    for (let i = 0; i < 4; i++) snake.push({ x: 7 - i, y });
+    for (let i = 0; i < 4; i++) snake.push({ x: hx - i, y });
     game = {
-      snake, dir: 'right', queue: [], food: null, bonus: null,
-      eaten: 0, score: 0, grow: 0,
-      level: settings.level, wrap: settings.wrap, newBest: false, won: false,
+      snake, dir: 'right', queue: [], foods: [], eats: [],
+      score: 0, grow: 0, ticks: 0, moved: false, prevTail: null,
+      wrap: settings.wrap, newBest: false, won: false,
     };
-    game.food = randomEmpty();
+    // The first apple waits straight ahead, the rest land at random.
+    game.foods.push({ x: cols - Math.floor(cols / 4) - 1, y, born: performance.now() });
+    while (game.foods.length < settings.apples) {
+      const p = randomEmpty();
+      if (!p) break;
+      game.foods.push({ x: p.x, y: p.y, born: performance.now() + game.foods.length * 90 });
+    }
+    headAng = 0;
+    bulges.length = 0;
+    particles.length = 0;
+    floaters.length = 0;
   }
 
   function randomEmpty() {
-    const used = new Set(game.snake.map((p) => p.y * COLS + p.x));
-    if (game.food) used.add(game.food.y * COLS + game.food.x);
-    if (game.bonus) used.add(game.bonus.y * COLS + game.bonus.x);
+    const used = new Set(game.snake.map((p) => p.y * cols + p.x));
+    for (const f of game.foods) used.add(f.y * cols + f.x);
     const free = [];
-    for (let i = 0; i < COLS * ROWS; i++) if (!used.has(i)) free.push(i);
+    for (let i = 0; i < cols * rows; i++) if (!used.has(i)) free.push(i);
     if (!free.length) return null;
     const i = free[Math.floor(Math.random() * free.length)];
-    return { x: i % COLS, y: Math.floor(i / COLS) };
+    return { x: i % cols, y: Math.floor(i / cols) };
   }
-
-  const bonusValue = () => game.level * Math.max(1, Math.ceil(game.bonus.ttl / 3));
-  const at = (p, x, y) => p && p.x === x && p.y === y;
 
   function tick() {
     const g = game;
@@ -550,133 +557,87 @@ kbd {
     const head = g.snake[0];
     let nx = head.x + vx, ny = head.y + vy;
     if (g.wrap) {
-      nx = (nx + COLS) % COLS;
-      ny = (ny + ROWS) % ROWS;
-    } else if (nx < 0 || ny < 0 || nx >= COLS || ny >= ROWS) {
+      nx = (nx + cols) % cols;
+      ny = (ny + rows) % rows;
+    } else if (nx < 0 || ny < 0 || nx >= cols || ny >= rows) {
       return die();
     }
-
-    const eatsFood = at(g.food, nx, ny);
-    const eatsBonus = at(g.bonus, nx, ny);
+    const fi = g.foods.findIndex((f) => f.x === nx && f.y === ny);
     // The tail moves out of the way this step unless the snake is growing.
-    const body = g.grow > 0 || eatsFood || eatsBonus ? g.snake : g.snake.slice(0, -1);
+    const body = g.grow > 0 || fi >= 0 ? g.snake : g.snake.slice(0, -1);
     if (body.some((p) => p.x === nx && p.y === ny)) return die();
 
     g.snake.unshift({ x: nx, y: ny });
-    if (eatsFood) {
-      g.score += g.level;
-      g.eaten++;
+    g.ticks++;
+    g.moved = true;
+    if (fi >= 0) {
+      const [f] = g.foods.splice(fi, 1);
+      g.score++;
       g.grow++;
-      g.food = null;
-      beep('eat');
-      if (g.eaten % BONUS_EVERY === 0 && !g.bonus) {
-        const p = randomEmpty();
-        if (p) g.bonus = { x: p.x, y: p.y, ttl: BONUS_TTL };
-      }
-      g.food = randomEmpty();
+      g.eats.push({ x: f.x, y: f.y, tick: g.ticks });
+      const p = randomEmpty();
+      if (p) g.foods.push({ x: p.x, y: p.y, born: performance.now() + 120 });
     }
-    if (eatsBonus) {
-      g.score += bonusValue();
-      g.grow++;
-      g.bonus = null;
-      beep('bonus');
-    }
-    if (g.grow > 0) g.grow--; else g.snake.pop();
-
-    if (g.bonus && !eatsBonus && --g.bonus.ttl <= 0) g.bonus = null;
-    if (!g.food) {
-      g.food = randomEmpty();
-      if (!g.food && !g.bonus) return win();
-    }
+    if (g.grow > 0) { g.grow--; g.prevTail = null; }
+    else g.prevTail = g.snake.pop();
+    if (!g.foods.length && !randomEmpty()) win();
   }
 
   function finish() {
-    if (game.score > best) {
+    const key = settingsKey();
+    if (game.score > (bests[key] || 0)) {
+      bests[key] = game.score;
       game.newBest = true;
-      best = game.score;
-      store.set('best', best);
+      store.set('bests', bests);
     }
     phase = 'over';
     overAt = performance.now();
-    dirty = true;
+    overShown = false;
     updateUI();
   }
-  function die() { beep('die'); finish(); }
-  function win() { game.won = true; beep('bonus'); finish(); }
+  function die() {
+    shakeUntil = performance.now() + 320;
+    beep('die');
+    finish();
+  }
+  function win() { game.won = true; beep('win'); finish(); }
 
   function start() {
-    newGame();
     phase = 'running';
     acc = 0;
-    dirty = true;
     beep('start');
+    tick();          // take the first step now so the snake starts gliding at once
     updateUI();
   }
-  function pause() { phase = 'paused'; dirty = true; updateUI(); }
-  function resume() { phase = 'running'; acc = 0; dirty = true; updateUI(); }
+  function pause() { phase = 'paused'; updateUI(); }
+  function resume() { phase = 'running'; updateUI(); }
   function quit() {
-    if (game && game.score > best) { best = game.score; store.set('best', best); }
-    game = null;
     phase = 'ready';
-    dirty = true;
+    newGame();
+    resize(true);
     updateUI();
   }
   function toggle() {
     if (phase === 'ready') start();
     else if (phase === 'running') pause();
     else if (phase === 'paused') resume();
-    else if (performance.now() - overAt > RESTART_LOCK_MS) start();
+    else if (performance.now() - overAt > RESTART_LOCK_MS) { newGame(); resize(true); start(); }
   }
   function steer(dir) {
-    if (phase === 'ready') start();
-    else if (phase === 'paused') resume();
-    if (phase !== 'running') return;
+    if (phase === 'over') return;
+    if (phase === 'ready') {
+      if (dir !== game.dir && dir !== OPPOSITE[game.dir]) game.queue.push(dir);
+      start();
+      return;
+    }
+    if (phase === 'paused') resume();
     const q = game.queue;
     const lastDir = q.length ? q[q.length - 1] : game.dir;
     if (dir === lastDir || dir === OPPOSITE[lastDir] || q.length >= 3) return;
     q.push(dir);
   }
 
-  // ---- Drawing into a 1-bit framebuffer, then onto the canvas ----
-  const fb = new Uint8Array(W * H);
-  const colors = { on: '#232d1f', ghost: 'rgba(35,45,31,.075)' };
-  let dot = 0, gap = 0, xs = [], ys = [];
-
-  function set(x, y, v) { if (x >= 0 && y >= 0 && x < W && y < H) fb[y * W + x] = v; }
-  function fill(x, y, w, h, v) { for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) set(x + i, y + j, v); }
-  function cellDot(c, i, j, v = 1) { set(FX + c.x * CELL + i, FY + c.y * CELL + j, v); }
-  function bitmap(rows, x, y) {
-    rows.forEach((row, j) => { for (let i = 0; i < row.length; i++) if (row[i] === '#') set(x + i, y + j, 1); });
-  }
-  const textWidth = (str, s) => (str.length * 4 - 1) * s;
-  function text(str, x, y, s = 1) {
-    for (const ch of str) {
-      const g = FONT[ch];
-      if (g) g.forEach((row, j) => { for (let i = 0; i < 3; i++) if (row[i] === '#') fill(x + i * s, y + j * s, s, s, 1); });
-      x += 4 * s;
-    }
-  }
-
-  function drawBorder(wrap) {
-    const top = FY - 2, bottom = H - 1;
-    for (let x = 0; x < W; x++) if (!wrap || x % 2 === 0) { set(x, top, 1); set(x, bottom, 1); }
-    for (let y = top; y <= bottom; y++) if (!wrap || (y - top) % 2 === 0) { set(0, y, 1); set(W - 1, y, 1); }
-  }
-
-  function drawStatus() {
-    const playing = phase !== 'ready' && game;
-    text(pad4(playing ? game.score : 0), 0, 1);
-    if (playing && game.bonus) {
-      const v = String(bonusValue()).padStart(2, '0');
-      const tw = textWidth(v, 1);
-      text(v, W - tw, 1);
-      bitmap(BUG, W - tw - 7, 1);
-    } else {
-      const lv = 'L' + (playing ? game.level : settings.level);
-      text(lv, W - textWidth(lv, 1), 1);
-    }
-  }
-
+  // ---- Geometry helpers ----
   function rel(a, b) {
     let dx = b.x - a.x, dy = b.y - a.y;
     if (dx > 1) dx = -1; else if (dx < -1) dx = 1;   // neighbours across a wrapped edge
@@ -684,150 +645,431 @@ kbd {
     return [dx, dy];
   }
 
-  function drawSnake() {
-    const s = game.snake;
-    s.forEach((p, idx) => {
-      for (let j = 1; j <= 3; j++) for (let i = 1; i <= 3; i++) cellDot(p, i, j);
-      const links = [];
-      if (idx > 0) links.push(rel(p, s[idx - 1]));
-      if (idx < s.length - 1) links.push(rel(p, s[idx + 1]));
-      for (const [dx, dy] of links) {
-        for (let k = 1; k <= 3; k++) {
-          if (dx === 1) cellDot(p, 4, k);
-          if (dx === -1) cellDot(p, 0, k);
-          if (dy === 1) cellDot(p, k, 4);
-          if (dy === -1) cellDot(p, k, 0);
+  // The body as a polyline through cell centres (in unwrapped cell units), head first.
+  // t is how far the current step has progressed: the head slides into its new cell
+  // while the tail slides out of the one it just left.
+  function bodyPath(t) {
+    const g = game, s = g.snake, n = s.length;
+    const [dx, dy] = DIRS[g.dir];
+    const back = g.moved ? 1 - t : 0;
+    let ux = s[0].x, uy = s[0].y;
+    const pts = [[ux - dx * back, uy - dy * back]];
+    for (let i = 1; i < n; i++) {
+      const [rx, ry] = rel(s[i - 1], s[i]);
+      ux += rx; uy += ry;
+      pts.push([ux, uy]);
+    }
+    if (g.moved && g.prevTail) {
+      const [rx, ry] = rel(s[n - 1], g.prevTail);
+      pts.push([ux + rx * (1 - t), uy + ry * (1 - t)]);
+    }
+    const cum = [0];
+    for (let i = 1; i < pts.length; i++) {
+      cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    }
+    return { pts, cum, L: cum[cum.length - 1] };
+  }
+
+  function pointAt(path, d) {
+    const { pts, cum } = path;
+    if (d <= 0) return pts[0];
+    for (let i = 1; i < pts.length; i++) {
+      if (cum[i] >= d) {
+        const seg = cum[i] - cum[i - 1] || 1;
+        const k = (d - cum[i - 1]) / seg;
+        return [pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * k, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * k];
+      }
+    }
+    return pts[pts.length - 1];
+  }
+
+  // Points of the path between distances d0 and d1, keeping the corners in between.
+  function subPath(path, d0, d1) {
+    const out = [pointAt(path, d0)];
+    for (let i = 1; i < path.pts.length - 1; i++) {
+      if (path.cum[i] > d0 && path.cum[i] < d1) out.push(path.pts[i]);
+    }
+    out.push(pointAt(path, d1));
+    return out;
+  }
+
+  // ---- Drawing ----
+  const easeOutBack = (x) => 1 + 2.7 * Math.pow(x - 1, 3) + 1.7 * Math.pow(x - 1, 2);
+
+  function buildBoard() {
+    boardCache.width = canvas.width;
+    boardCache.height = canvas.height;
+    const b = boardCache.getContext('2d');
+    b.setTransform(dpr, 0, 0, dpr, 0, 0);
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        b.fillStyle = GRASS[(x + y) % 2];
+        b.fillRect(x * C, y * C, C + 0.5, C + 0.5);
+      }
+    }
+    if (game.wrap) {
+      b.setLineDash([C * 0.32, C * 0.24]);
+      b.strokeStyle = 'rgba(255, 255, 255, .75)';
+      b.lineWidth = 3;
+      b.strokeRect(1.5, 1.5, W - 3, H - 3);
+    }
+  }
+
+  function drawApple(cx, cy, r, s) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.fillStyle = 'rgba(46, 80, 12, .22)';
+    ctx.beginPath();
+    ctx.ellipse(r * 0.1, r * 0.98, r * 0.82 * s, r * 0.26 * s, 0, 0, TAU);
+    ctx.fill();
+    ctx.scale(s, s);
+    const grad = ctx.createRadialGradient(-r * 0.38, -r * 0.3, r * 0.08, 0, 0, r * 1.15);
+    grad.addColorStop(0, APPLE.light);
+    grad.addColorStop(0.55, APPLE.mid);
+    grad.addColorStop(1, APPLE.dark);
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(0, -r * 0.62);
+    ctx.bezierCurveTo(r * 0.55, -r * 1.02, r * 1.14, -r * 0.55, r * 1.0, r * 0.15);
+    ctx.bezierCurveTo(r * 0.9, r * 0.76, r * 0.45, r * 1.02, 0, r * 0.86);
+    ctx.bezierCurveTo(-r * 0.45, r * 1.02, -r * 0.9, r * 0.76, -r * 1.0, r * 0.15);
+    ctx.bezierCurveTo(-r * 1.14, -r * 0.55, -r * 0.55, -r * 1.02, 0, -r * 0.62);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 255, 255, .55)';
+    ctx.beginPath();
+    ctx.ellipse(-r * 0.46, -r * 0.18, r * 0.14, r * 0.28, 0.5, 0, TAU);
+    ctx.fill();
+    ctx.strokeStyle = APPLE.stem;
+    ctx.lineWidth = Math.max(1.5, r * 0.15);
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(0, -r * 0.55);
+    ctx.quadraticCurveTo(r * 0.04, -r * 0.95, r * 0.22, -r * 1.12);
+    ctx.stroke();
+    ctx.fillStyle = APPLE.leaf;
+    ctx.beginPath();
+    ctx.moveTo(r * 0.12, -r * 0.86);
+    ctx.quadraticCurveTo(r * 0.55, -r * 1.38, r * 0.98, -r * 1.06);
+    ctx.quadraticCurveTo(r * 0.55, -r * 0.66, r * 0.12, -r * 0.86);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawFoods(now) {
+    const r = C * 0.38;
+    for (const f of game.foods) {
+      const age = now - f.born;
+      if (age < 0) continue;
+      let s = 1;
+      if (!reduceMotion) {
+        if (age < 300) s = Math.max(0, easeOutBack(age / 300));
+        s *= 1 + 0.05 * Math.sin(now / 230 + f.x * 1.7 + f.y);
+      }
+      drawApple((f.x + 0.5) * C, (f.y + 0.5) * C, r, s);
+    }
+    for (const e of game.eats) drawApple((e.x + 0.5) * C, (e.y + 0.5) * C, r, 1);   // about to be swallowed
+  }
+
+  function strokeLine(points, ox, oy) {
+    ctx.beginPath();
+    points.forEach(([x, y], i) => {
+      const px = (x + 0.5 + ox) * C, py = (y + 0.5 + oy) * C;
+      if (i) ctx.lineTo(px, py); else ctx.moveTo(px, py);
+    });
+    ctx.stroke();
+  }
+
+  function drawSnakeAt(path, ox, oy, look) {
+    const sk = SKINS[settings.skin];
+    const { L } = path;
+    const w = BODY_R * 2 * C;
+    const taper = Math.min(TAPER, L * 0.6);
+    const mainEnd = L - taper;
+    const steps = 8;
+    const bulgeAt = bulges.map((b) => b.d).filter((d) => d > 0.4 && d < L - 0.6);
+
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (const pass of [0, 1]) {
+      const width = pass ? w * 0.8 : w;
+      ctx.strokeStyle = ctx.fillStyle = pass ? sk.body : sk.edge;
+      ctx.lineWidth = width;
+      if (mainEnd > 0) strokeLine(subPath(path, 0, mainEnd), ox, oy);
+      for (let k = 0; k < steps; k++) {
+        const d0 = mainEnd + (taper * k) / steps, d1 = mainEnd + (taper * (k + 1)) / steps;
+        ctx.lineWidth = width * (1 - (0.55 * (k + 1)) / steps);
+        strokeLine(subPath(path, d0, d1), ox, oy);
+      }
+      for (const d of bulgeAt) {
+        const [x, y] = pointAt(path, d);
+        ctx.beginPath();
+        ctx.arc((x + 0.5 + ox) * C, (y + 0.5 + oy) * C, (width / 2) * 1.32, 0, TAU);
+        ctx.fill();
+      }
+    }
+
+    // A row of darker scales down the back.
+    ctx.fillStyle = sk.spot;
+    for (let d = 1; d < L - 0.7; d += 1) {
+      const [x, y] = pointAt(path, d);
+      const fade = d > mainEnd ? 1 - (0.55 * (d - mainEnd)) / taper : 1;
+      ctx.beginPath();
+      ctx.arc((x + 0.5 + ox) * C, (y + 0.5 + oy) * C, w * 0.15 * fade, 0, TAU);
+      ctx.fill();
+    }
+
+    const [hx, hy] = path.pts[0];
+    drawHead((hx + 0.5 + ox) * C, (hy + 0.5 + oy) * C, w, look);
+  }
+
+  function drawHead(cx, cy, w, look) {
+    const sk = SKINS[settings.skin];
+    const R = HEAD_R * C;
+    const edgeW = w * 0.1;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(headAng);                 // +x points where the snake is heading
+
+    if (look.tongue) {
+      ctx.strokeStyle = TONGUE;
+      ctx.lineWidth = Math.max(1.5, C * 0.06);
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(R * 0.8, 0);
+      ctx.lineTo(R * 1.5, 0);
+      ctx.moveTo(R * 1.5, 0);
+      ctx.lineTo(R * 1.75, -R * 0.2);
+      ctx.moveTo(R * 1.5, 0);
+      ctx.lineTo(R * 1.75, R * 0.2);
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = sk.edge;
+    ctx.beginPath();
+    ctx.ellipse(R * 0.06, 0, R * 1.04, R * 0.96, 0, 0, TAU);
+    ctx.fill();
+    ctx.fillStyle = sk.body;
+    ctx.beginPath();
+    ctx.ellipse(R * 0.06, 0, R * 1.04 - edgeW, R * 0.96 - edgeW, 0, 0, TAU);
+    ctx.fill();
+
+    if (look.mouth) {
+      ctx.fillStyle = MOUTH;
+      ctx.beginPath();
+      ctx.ellipse(R * 0.7, 0, R * 0.24, R * 0.4, 0, 0, TAU);
+      ctx.fill();
+    }
+
+    const er = R * 0.34;
+    const cos = Math.cos(headAng), sin = Math.sin(headAng);
+    const lx = look.x * cos + look.y * sin, ly = -look.x * sin + look.y * cos;   // gaze in head space
+    ctx.lineCap = 'round';
+    for (const side of [-1, 1]) {
+      const ex = R * 0.16, ey = side * R * 0.48;
+      if (look.dead) {
+        ctx.strokeStyle = EYE_INK;
+        ctx.lineWidth = Math.max(1.5, R * 0.12);
+        const k = er * 0.62;
+        ctx.beginPath();
+        ctx.moveTo(ex - k, ey - k); ctx.lineTo(ex + k, ey + k);
+        ctx.moveTo(ex + k, ey - k); ctx.lineTo(ex - k, ey + k);
+        ctx.stroke();
+      } else if (look.blink) {
+        ctx.strokeStyle = EYE_INK;
+        ctx.lineWidth = Math.max(1.5, R * 0.1);
+        ctx.beginPath();
+        ctx.moveTo(ex - er * 0.75, ey); ctx.lineTo(ex + er * 0.75, ey);
+        ctx.stroke();
+      } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(ex, ey, er, 0, TAU);
+        ctx.fill();
+        const px = ex + lx * er * 0.4, py = ey + ly * er * 0.4;
+        ctx.fillStyle = EYE_INK;
+        ctx.beginPath();
+        ctx.arc(px, py, er * 0.56, 0, TAU);
+        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(px - er * 0.18, py - er * 0.2, er * 0.17, 0, TAU);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawSnake(now, dt, t) {
+    const path = bodyPath(t);
+    const g = game;
+    const [hx, hy] = path.pts[0];
+
+    // Turn the head smoothly toward the heading.
+    const [dx, dy] = DIRS[g.dir];
+    const target = Math.atan2(dy, dx);
+    let diff = target - headAng;
+    diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+    headAng = reduceMotion || !g.moved ? target : headAng + diff * Math.min(1, dt / 55);
+
+    // Look at the nearest apple; open wide when one is right in front.
+    let gaze = [dx, dy], near = Infinity, mouth = false;
+    for (const f of g.foods.concat(g.eats)) {
+      const fx = f.x - hx, fy = f.y - hy;
+      const dist = Math.hypot(fx, fy);
+      if (dist < near) { near = dist; gaze = dist > 0.01 ? [fx / dist, fy / dist] : gaze; }
+      if (dist < 1.7 && fx * dx + fy * dy > 0.3) mouth = true;
+    }
+    const dead = phase === 'over';
+    const look = {
+      x: gaze[0], y: gaze[1], dead, mouth: mouth && !dead,
+      blink: !dead && now % 4100 < 130,
+      tongue: phase === 'running' && !mouth && now % 2800 < 260,
+    };
+
+    // Bulges of swallowed apples drift toward the tail.
+    for (let i = bulges.length - 1; i >= 0; i--) {
+      const b = bulges[i];
+      b.d = (g.ticks - b.tick + t - 0.5) * 0.65;
+      if (b.d > path.L) bulges.splice(i, 1);
+    }
+
+    ctx.save();
+    if (dead && now - overAt < DEATH_MS && !reduceMotion) {
+      ctx.globalAlpha = Math.floor((now - overAt) / 150) % 2 ? 0.45 : 1;
+    }
+    const offsets = [[0, 0]];
+    if (g.wrap) {
+      const xs = path.pts.map((p) => p[0]), ys = path.pts.map((p) => p[1]);
+      const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+      for (const ox of [-cols, 0, cols]) {
+        for (const oy of [-rows, 0, rows]) {
+          if (!ox && !oy) continue;
+          if (maxX + ox >= -1 && minX + ox <= cols && maxY + oy >= -1 && minY + oy <= rows) offsets.push([ox, oy]);
         }
       }
-    });
-    const head = s[0];
-    cellDot(head, ...EYE[game.dir], 0);
-    cellDot(head, ...MOUTH[game.dir], 1);
-  }
-
-  function drawBox(lines) {
-    const padding = 4, lineGap = 3;
-    const widths = lines.map((l) => textWidth(l.t, l.s));
-    const bw = Math.max(...widths) + padding * 2 + 2;
-    const bh = lines.reduce((h, l) => h + 5 * l.s, 0) + lineGap * (lines.length - 1) + padding * 2 + 2;
-    const bx = FX + ((COLS * CELL - bw) >> 1);
-    const by = FY + ((ROWS * CELL - bh) >> 1);
-    fill(bx - 1, by - 1, bw + 2, bh + 2, 0);
-    for (let x = bx; x < bx + bw; x++) { set(x, by, 1); set(x, by + bh - 1, 1); }
-    for (let y = by; y < by + bh; y++) { set(bx, y, 1); set(bx + bw - 1, y, 1); }
-    let y = by + 1 + padding;
-    lines.forEach((l, i) => {
-      text(l.t, bx + ((bw - widths[i]) >> 1), y, l.s);
-      y += 5 * l.s + lineGap;
-    });
-  }
-
-  function render(now) {
-    fb.fill(0);
-    drawBorder(phase === 'ready' || !game ? settings.wrap : game.wrap);
-    drawStatus();
-    if (phase === 'ready' || !game) {
-      drawBox([
-        { t: 'SNAKE', s: 2 },
-        { t: 'LEVEL ' + settings.level, s: 1 },
-        { t: 'BEST ' + pad4(best), s: 1 },
-      ]);
-    } else {
-      const blinking = phase === 'over' && !reduceMotion && now - overAt < BLINK_MS;
-      if (game.food) bitmap(FOOD, FX + game.food.x * CELL, FY + game.food.y * CELL);
-      if (game.bonus && (game.bonus.ttl > 8 || game.bonus.ttl % 2 === 0)) {
-        bitmap(BUG, FX + game.bonus.x * CELL, FY + game.bonus.y * CELL);
-      }
-      if (!blinking || Math.floor((now - overAt) / 200) % 2 === 1) drawSnake();
-      if (phase === 'paused') drawBox([{ t: 'PAUSE', s: 2 }]);
-      if (phase === 'over' && !blinking) {
-        drawBox([
-          { t: game.won ? 'YOU WIN' : 'GAME OVER', s: 2 },
-          { t: 'SCORE ' + pad4(game.score), s: 1 },
-          { t: game.newBest ? 'NEW BEST!' : 'BEST ' + pad4(best), s: 1 },
-        ]);
-      }
     }
-    paint();
+    for (const [ox, oy] of offsets) drawSnakeAt(path, ox, oy, look);
+    ctx.restore();
   }
 
-  function paint() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (ghost.width) ctx.drawImage(ghost, 0, 0);
-    ctx.fillStyle = colors.on;
-    for (let y = 0; y < H; y++) {
-      const row = y * W, h = ys[y + 1] - ys[y] - gap;
-      for (let x = 0; x < W; x++) if (fb[row + x]) ctx.fillRect(xs[x], ys[y], xs[x + 1] - xs[x] - gap, h);
+  function burst(x, y, now) {
+    if (reduceMotion) return;
+    for (let i = 0; i < 14; i++) {
+      const a = Math.random() * TAU, v = 2.5 + Math.random() * 4;
+      particles.push({
+        x: x + 0.5, y: y + 0.5, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 1.5,
+        r: 0.05 + Math.random() * 0.07, color: SPARKS[i % SPARKS.length],
+        born: now, life: 380 + Math.random() * 260,
+      });
+    }
+    floaters.push({ x: x + 0.5, y: y + 0.1, born: now });
+  }
+
+  function drawEffects(now, dt) {
+    const s = dt / 1000;
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      const age = now - p.born;
+      if (age > p.life) { particles.splice(i, 1); continue; }
+      p.x += p.vx * s; p.y += p.vy * s; p.vy += 9 * s;
+      ctx.globalAlpha = 1 - age / p.life;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x * C, p.y * C, p.r * C, 0, TAU);
+      ctx.fill();
+    }
+    ctx.font = `800 ${Math.round(C * 0.55)}px ${bodyFont}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.lineJoin = 'round';
+    for (let i = floaters.length - 1; i >= 0; i--) {
+      const f = floaters[i];
+      const age = now - f.born;
+      if (age > 700) { floaters.splice(i, 1); continue; }
+      const k = age / 700;
+      ctx.globalAlpha = 1 - k * k;
+      const y = (f.y - k * 0.9) * C;
+      ctx.lineWidth = Math.max(2, C * 0.1);
+      ctx.strokeStyle = 'rgba(40, 70, 10, .55)';
+      ctx.strokeText('+1', f.x * C, y);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('+1', f.x * C, y);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function render(now, dt) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    if (now < shakeUntil && !reduceMotion) {
+      const k = (shakeUntil - now) / 320;
+      ctx.translate((Math.random() - 0.5) * 8 * k, (Math.random() - 0.5) * 8 * k);
+    }
+    ctx.drawImage(boardCache, 0, 0, W, H);
+    drawFoods(now);
+    drawSnake(now, dt, renderT);
+    drawEffects(now, dt);
+  }
+
+  function resize(force) {
+    const cs = getComputedStyle(stage);
+    const frame = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    const availW = gameCol.clientWidth - frame;
+    const availH = Math.max(240, window.innerHeight - 200);
+    const next = Math.max(8, Math.min(availW / cols, availH / rows));
+    dpr = window.devicePixelRatio || 1;
+    if (!force && Math.abs(next - C) < 0.01) return;
+    C = next;
+    W = cols * C;
+    H = rows * C;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    buildBoard();
+  }
+
+  // Swallow apples once the head has visibly reached them.
+  function settleEats(now) {
+    const g = game;
+    while (g.eats.length && (g.eats[0].tick < g.ticks || renderT >= 0.55 || phase !== 'running')) {
+      const e = g.eats.shift();
+      burst(e.x, e.y, now);
+      bulges.push({ tick: e.tick, d: 0 });
+      beep('eat');
+      setText(el.score, g.score - g.eats.length);
+      el.scoreBox.classList.remove('bump');
+      void el.scoreBox.offsetWidth;
+      el.scoreBox.classList.add('bump');
     }
   }
 
-  function buildGhost() {
-    ghost.width = canvas.width;
-    ghost.height = canvas.height;
-    const g = ghost.getContext('2d');
-    g.clearRect(0, 0, ghost.width, ghost.height);
-    g.fillStyle = colors.ghost;
-    for (let y = 0; y < H; y++) {
-      for (let x = 0; x < W; x++) g.fillRect(xs[x], ys[y], xs[x + 1] - xs[x] - gap, ys[y + 1] - ys[y] - gap);
-    }
-  }
-
-  function resize() {
-    const cs = getComputedStyle(lcd);
-    const avail = lcd.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    const dpr = window.devicePixelRatio || 1;
-    const next = Math.max(1, (avail * dpr) / W);   // device pixels per LCD dot
-    if (Math.abs(next - dot) < 0.01) return;
-    dot = next;
-    gap = dot >= 3.5 ? Math.max(1, Math.round(dot * 0.12)) : 0;
-    // Snap every dot edge to a whole device pixel so the matrix stays crisp.
-    xs = Array.from({ length: W + 1 }, (_, i) => Math.round(i * dot));
-    ys = Array.from({ length: H + 1 }, (_, i) => Math.round(i * dot));
-    canvas.width = xs[W];
-    canvas.height = ys[H];
-    canvas.style.width = xs[W] / dpr + 'px';
-    canvas.style.height = ys[H] / dpr + 'px';
-    buildGhost();
-    dirty = true;
-  }
-
-  function readColors() {
-    const cs = getComputedStyle(document.documentElement);
-    colors.on = cs.getPropertyValue('--lcd-on').trim() || colors.on;
-    colors.ghost = cs.getPropertyValue('--lcd-ghost').trim() || colors.ghost;
-    if (dot) buildGhost();
-    dirty = true;
-  }
-
-  // ---- Main loop: fixed-step game ticks, redraw only when something changed ----
+  // ---- Main loop ----
   function frame(now) {
+    const dt = Math.min(now - last, 100);
+    const step = SPEEDS[settings.speed];
     if (phase === 'running') {
-      const step = SPEEDS[game.level - 1];
       acc += Math.min(now - last, 250);
-      let stepped = false;
       while (acc >= step && phase === 'running') {
         acc -= step;
         tick();
-        stepped = true;
       }
-      if (stepped) { dirty = true; updateStats(); }
     }
     last = now;
-    if (phase === 'over') {
-      const k = Math.min(Math.floor((now - overAt) / 200), 99);
-      if (k !== blinkKey) { blinkKey = k; dirty = true; }
-    }
-    if (dirty) { dirty = false; render(now); }
+    renderT = phase === 'running' || phase === 'paused' ? Math.min(acc / step, 1) : 1;
+    if (phase === 'over' && !overShown && now - overAt > DEATH_MS) { overShown = true; updateUI(); }
+    settleEats(now);
+    render(now, dt);
     requestAnimationFrame(frame);
   }
 
-  // ---- Sound: short square-wave beeps, started from a user gesture ----
+  // ---- Sound: soft blips, started from a user gesture ----
   let audio = null;
   const TUNES = {
-    start: [[660, 0, 0.05], [990, 0.06, 0.06]],
-    eat: [[1320, 0, 0.04]],
-    bonus: [[990, 0, 0.05], [1320, 0.06, 0.05], [1760, 0.12, 0.07]],
-    die: [[392, 0, 0.12], [294, 0.13, 0.12], [196, 0.26, 0.28]],
+    start: [[523, 0, 0.07], [784, 0.08, 0.1]],
+    eat: [[880, 0, 0.05], [1318, 0.05, 0.08]],
+    die: [[330, 0, 0.14], [247, 0.15, 0.14], [165, 0.3, 0.3]],
+    win: [[523, 0, 0.1], [659, 0.1, 0.1], [784, 0.2, 0.1], [1046, 0.3, 0.25]],
   };
   function wakeAudio() {
     if (!settings.sound) return;
@@ -845,10 +1087,10 @@ kbd {
     const t0 = audio.currentTime + 0.01;
     for (const [freq, offset, dur] of TUNES[name]) {
       const osc = audio.createOscillator(), gain = audio.createGain();
-      osc.type = 'square';
+      osc.type = 'triangle';
       osc.frequency.value = freq;
       gain.gain.setValueAtTime(0.0001, t0 + offset);
-      gain.gain.exponentialRampToValueAtTime(0.05, t0 + offset + 0.005);
+      gain.gain.exponentialRampToValueAtTime(0.12, t0 + offset + 0.008);
       gain.gain.exponentialRampToValueAtTime(0.0001, t0 + offset + dur);
       osc.connect(gain).connect(audio.destination);
       osc.start(t0 + offset);
@@ -857,68 +1099,72 @@ kbd {
   }
 
   // ---- UI ----
-  const LABELS = { ready: '开始游戏', running: '暂停', paused: '继续', over: '再来一局' };
-  function hintText() {
-    if (phase === 'ready') return coarse ? '轻点屏幕或按 5 开始，滑动屏幕转向' : '按 5 或空格开始，也可以直接按方向键';
-    if (phase === 'running') return coarse ? '在屏幕上滑动或按 2 4 6 8 转向' : '方向键 / WASD / 2 4 6 8 转向，空格暂停';
-    if (phase === 'paused') return coarse ? '已暂停 · 轻点屏幕继续' : '已暂停 · 按 5 或空格继续，Esc 结束本局';
-    const again = coarse ? '轻点屏幕再来一局' : '按 5 或空格再来一局';
-    return game && game.won ? '整个屏幕都被你填满了！' + again : `本局 ${game ? game.score : 0} 分 · ${again}`;
-  }
   function setText(node, value) {
     const s = String(value);
     if (node.textContent !== s) node.textContent = s;
   }
-  function updateStats() {
-    setText(el.score, game && phase !== 'ready' ? game.score : 0);
-    setText(el.best, best);
-    setText(el.length, game && phase !== 'ready' ? game.snake.length : 4);
-  }
   function updateUI() {
-    updateStats();
-    setText(el.primary, LABELS[phase]);
-    el.quit.hidden = phase !== 'paused';
+    const g = game;
+    setText(el.score, phase === 'ready' ? 0 : g.score - g.eats.length);
+    setText(el.best, bestNow());
+    el.ovStart.hidden = phase !== 'ready';
+    el.ovPause.hidden = phase !== 'paused';
+    el.ovOver.hidden = !(phase === 'over' && overShown);
+    setText(el.startSub, coarse ? '或者在棋盘上滑动出发' : '或者直接按方向键出发');
+    if (phase === 'over') {
+      setText(el.overTitle, g.won ? '整片草地都是你的！' : '撞到了！');
+      setText(el.rScore, g.score);
+      setText(el.rBest, bestNow());
+      el.rNew.hidden = !g.newBest;
+    }
+    const running = phase === 'running';
+    el.iconPause.toggleAttribute('hidden', !running);
+    el.iconPlay.toggleAttribute('hidden', running);
+    el.pauseBtn.setAttribute('aria-label', running ? '暂停' : phase === 'paused' ? '继续' : '开始');
+    el.soundBtn.setAttribute('aria-pressed', String(settings.sound));
+    el.soundBtn.setAttribute('aria-label', settings.sound ? '关闭音效' : '打开音效');
+    el.soundOn.toggleAttribute('hidden', !settings.sound);
+    el.soundOff.toggleAttribute('hidden', settings.sound);
     const locked = phase === 'running' || phase === 'paused';
-    el.levelSet.disabled = locked;
-    el.wallSet.disabled = locked;
+    lockable.forEach((f) => { f.disabled = locked; });
     el.lockNote.hidden = !locked;
-    setText(el.hint, hintText());
+    const status = { ready: '', running: '游戏开始', paused: '已暂停', over: `游戏结束，得分 ${g.score}` }[phase];
+    setText(el.status, status);
   }
   function syncControls() {
-    $('level-' + settings.level).checked = true;
+    $('speed-' + settings.speed).checked = true;
+    $('size-' + settings.size).checked = true;
+    $('apples-' + settings.apples).checked = true;
     $(settings.wrap ? 'walls-wrap' : 'walls-solid').checked = true;
-    el.sound.checked = settings.sound;
+    $('skin-' + settings.skin).checked = true;
   }
-  function flashKey(which) {
-    const key = which === 'toggle' ? keypad.querySelector('.key-mid') : keypad.querySelector(`[data-dir="${which}"]`);
-    if (!key) return;
-    key.classList.add('is-pressed');
-    setTimeout(() => key.classList.remove('is-pressed'), 110);
+  function flashPad(dir) {
+    const pad = dpad.querySelector(`[data-dir="${dir}"]`);
+    if (!pad) return;
+    pad.classList.add('is-pressed');
+    setTimeout(() => pad.classList.remove('is-pressed'), 110);
   }
 
   // ---- Input ----
   function onKeyDown(e) {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
-    const tag = e.target && e.target.tagName;
+    const target = e.target, tag = target && target.tagName;
     const inField = tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA';
-    const nativeActivate = tag === 'BUTTON' || (inField && e.target.type !== 'radio');
     const dir = KEYMAP[e.code];
     if (dir) {
       if (inField && phase !== 'running') return;   // let arrow keys move between radio options
       e.preventDefault();
       wakeAudio();
-      flashKey(dir);
+      flashPad(dir);
       steer(dir);
       return;
     }
     if (TOGGLE_KEYS.has(e.code)) {
       const activates = e.code === 'Space' || e.code === 'Enter' || e.code === 'NumpadEnter';
-      if (activates && nativeActivate) return;   // the focused button or switch handles it
-      if (inField && e.code === 'KeyP') return;
+      if (activates && (tag === 'BUTTON' || (inField && target.type !== 'radio'))) return;   // native activation
       e.preventDefault();
       if (e.repeat) return;
       wakeAudio();
-      flashKey('toggle');
       toggle();
       return;
     }
@@ -928,94 +1174,102 @@ kbd {
     }
   }
 
-  function pressKey(key) {
-    if (key.dataset.dir) steer(key.dataset.dir);
-    else toggle();
-  }
-
   let drag = null;
-  function onLcdDown(e) {
+  function onStageDown(e) {
+    if (e.target.closest('button')) return;
     wakeAudio();
     drag = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false };
-    try { lcd.setPointerCapture(e.pointerId); } catch (err) { /* not supported */ }
+    try { stage.setPointerCapture(e.pointerId); } catch (err) { /* not supported */ }
   }
-  function onLcdMove(e) {
+  function onStageMove(e) {
     if (!drag || e.pointerId !== drag.id) return;
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
     if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return;
     steer(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
     drag = { id: e.pointerId, x: e.clientX, y: e.clientY, moved: true };   // re-anchor so one drag can turn twice
   }
-  function onLcdUp(e) {
+  function onStageUp(e) {
     // A tap starts or resumes, but never pauses: a short swipe mid-game must not stop the snake.
-    if (drag && e.pointerId === drag.id && !drag.moved && phase !== 'running') toggle();
+    if (drag && e.pointerId === drag.id && !drag.moved && phase !== 'running' && !e.target.closest('button')) toggle();
     drag = null;
+  }
+
+  function onSettingChange(apply) {
+    apply();
+    store.set('settings', settings);
+    if (phase === 'ready' || phase === 'over') {
+      phase = 'ready';
+      newGame();
+      resize(true);
+    }
+    updateUI();
   }
 
   function bind() {
     document.addEventListener('keydown', onKeyDown);
 
-    keypad.addEventListener('pointerdown', (e) => {
-      const key = e.target.closest('.key');
-      if (!key) return;
+    stage.addEventListener('pointerdown', onStageDown);
+    stage.addEventListener('pointermove', onStageMove);
+    stage.addEventListener('pointerup', onStageUp);
+    stage.addEventListener('pointercancel', () => { drag = null; });
+    stage.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      wakeAudio();
+      if (btn.dataset.act === 'quit') quit(); else toggle();
+      if (e.detail > 0) btn.blur();
+    });
+
+    dpad.addEventListener('pointerdown', (e) => {
+      const pad = e.target.closest('.pad');
+      if (!pad) return;
       e.preventDefault();
       wakeAudio();
-      pressKey(key);
-      key.blur();
+      if (pad.dataset.dir) steer(pad.dataset.dir); else toggle();
+      pad.blur();
     });
-    keypad.addEventListener('click', (e) => {
-      const key = e.target.closest('.key');
-      if (key && e.detail === 0) pressKey(key);   // assistive-tech activation; pointer presses act on pointerdown
+    dpad.addEventListener('click', (e) => {
+      const pad = e.target.closest('.pad');
+      if (!pad || e.detail !== 0) return;   // assistive-tech activation; pointer presses act on pointerdown
+      if (pad.dataset.dir) steer(pad.dataset.dir); else toggle();
     });
 
-    lcd.addEventListener('pointerdown', onLcdDown);
-    lcd.addEventListener('pointermove', onLcdMove);
-    lcd.addEventListener('pointerup', onLcdUp);
-    lcd.addEventListener('pointercancel', () => { drag = null; });
-
-    el.primary.addEventListener('click', (e) => {
+    el.pauseBtn.addEventListener('click', (e) => {
       wakeAudio();
       toggle();
-      if (e.detail > 0) el.primary.blur();
+      if (e.detail > 0) el.pauseBtn.blur();
     });
-    el.quit.addEventListener('click', quit);
+    el.soundBtn.addEventListener('click', (e) => {
+      settings.sound = !settings.sound;
+      store.set('settings', settings);
+      if (settings.sound) { wakeAudio(); setTimeout(() => beep('eat'), 30); }
+      updateUI();
+      if (e.detail > 0) el.soundBtn.blur();
+    });
 
-    document.querySelectorAll('input[name="level"]').forEach((input) => {
-      input.addEventListener('change', () => {
-        settings.level = clampLevel(input.value);
-        store.set('level', settings.level);
-        dirty = true;
-      });
+    const radios = (name, fn) => document.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.addEventListener('change', () => fn(input.value));
     });
-    document.querySelectorAll('input[name="walls"]').forEach((input) => {
-      input.addEventListener('change', () => {
-        settings.wrap = input.value === 'wrap';
-        store.set('wrap', settings.wrap);
-        dirty = true;
-      });
-    });
+    radios('speed', (v) => onSettingChange(() => { settings.speed = v; }));
+    radios('size', (v) => onSettingChange(() => { settings.size = v; }));
+    radios('apples', (v) => onSettingChange(() => { settings.apples = Number(v); }));
+    radios('walls', (v) => onSettingChange(() => { settings.wrap = v === 'wrap'; }));
+    radios('skin', (v) => { settings.skin = v; store.set('settings', settings); });
+    // After a mouse or touch pick, hand the keyboard back to the game.
     document.querySelectorAll('.settings input').forEach((input) => {
       input.addEventListener('click', (e) => { if (e.detail > 0) input.blur(); });
-    });
-    el.sound.addEventListener('change', () => {
-      settings.sound = el.sound.checked;
-      store.set('sound', settings.sound);
-      if (settings.sound) { wakeAudio(); setTimeout(() => beep('eat'), 30); }
     });
 
     document.addEventListener('visibilitychange', () => { if (document.hidden && phase === 'running') pause(); });
     window.addEventListener('blur', () => { if (phase === 'running') pause(); });
-
-    matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', readColors);
-    new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(lcd);
-    else window.addEventListener('resize', resize);
+    window.addEventListener('resize', () => resize());
+    if ('ResizeObserver' in window) new ResizeObserver(() => resize()).observe(gameCol);
   }
 
   function snapshot() {
     return {
       settings: { ...settings },
-      best,
+      bests,
       phase: phase === 'running' ? 'paused' : phase,
       game,
     };
@@ -1023,25 +1277,28 @@ kbd {
 
   function boot(data) {
     data = data || {};
-    best = Number(store.get('best', 0)) || 0;
-    settings.level = clampLevel(store.get('level', 3));
-    settings.wrap = store.get('wrap', false) === true;
-    settings.sound = store.get('sound', true) !== false;
-    if (data.settings) {
-      settings.level = clampLevel(data.settings.level);
-      settings.wrap = !!data.settings.wrap;
-      settings.sound = data.settings.sound !== false;
+    sanitize(store.get('settings', null));
+    const saved = store.get('bests', {});
+    bests = saved && typeof saved === 'object' ? saved : {};
+    sanitize(data.settings);
+    if (data.bests && typeof data.bests === 'object') {
+      for (const [k, v] of Object.entries(data.bests)) bests[k] = Math.max(bests[k] || 0, Number(v) || 0);
     }
-    if (typeof data.best === 'number') best = Math.max(best, data.best);
-    if (data.game && Array.isArray(data.game.snake) && data.game.snake.length && data.phase && data.phase !== 'ready') {
-      game = data.game;
-      phase = data.phase === 'running' ? 'paused' : data.phase;
+    const g = data.game;
+    if (g && Array.isArray(g.snake) && g.snake.length && Array.isArray(g.foods) && (data.phase === 'paused' || data.phase === 'over')) {
+      [cols, rows] = SIZES[settings.size];
+      game = g;
+      game.eats = [];
+      game.foods.forEach((f) => { f.born = -1e9; });
+      phase = data.phase;
+      overShown = true;
+    } else {
+      newGame();
     }
 
     syncControls();
     bind();
-    readColors();
-    resize();
+    resize(true);
     updateUI();
     window.claude?.hot?.snapshot?.(snapshot);
     requestAnimationFrame((t) => { last = t; frame(t); });
