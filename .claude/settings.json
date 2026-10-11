@@ -1,0 +1,6 @@
+{
+  "enabledMcpjsonServers": ["rea"],
+  "env": {
+    "MCP_TIMEOUT": "120000"
+  }
+}
