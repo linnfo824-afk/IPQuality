@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "rea": {
+      "type": "stdio",
+      "command": "sh",
+      "args": [
+        "-c",
+        "[ -r /opt/rea-tools/env.sh ] && . /opt/rea-tools/env.sh; exec npx -y rea-agents@6.4.0 mcp"
+      ]
+    }
+  }
+}
