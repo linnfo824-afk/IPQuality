@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather Card</string>
+    <string name="widget_name">Weather Card</string>
+    <string name="widget_description">Current weather and a 5-day forecast</string>
+    <string name="default_city">Beijing</string>
+    <string name="current_location">My location</string>
+
+    <!-- Widget -->
+    <string name="loading">Loading…</string>
+    <string name="load_failed">Failed · tap to retry</string>
+    <string name="updating">Updating…</string>
+    <string name="updated_at">%s</string>
+    <string name="update_failed_at">Update failed · %s</string>
+    <string name="high_low">↑%1$s ↓%2$s</string>
+    <string name="forecast_range">%1$s/%2$s</string>
+    <string name="feels_like_humidity">Feels %1$s · Humidity %2$d%%</string>
+    <!-- %1$s = direction, %2$d = speed in km/h, %3$d = Beaufort force -->
+    <string name="wind_format">%1$s %2$d km/h</string>
+    <string name="wind_and_rain">%1$s · Rain %2$d%%</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tmrw</string>
+    <string-array name="wind_directions">
+        <item>N</item>
+        <item>NE</item>
+        <item>E</item>
+        <item>SE</item>
+        <item>S</item>
+        <item>SW</item>
+        <item>W</item>
+        <item>NW</item>
+    </string-array>
+
+    <!-- Widget picker preview -->
+    <string name="preview_status">10:30</string>
+    <string name="preview_high_low">↑26° ↓15°</string>
+    <string name="preview_details" formatted="false">Feels 22° · Humidity 45%</string>
+    <string name="preview_wind" formatted="false">NE 12 km/h · Rain 10%</string>
+    <string name="preview_day2">Wed</string>
+    <string name="preview_day3">Thu</string>
+    <string name="preview_day4">Fri</string>
+
+    <!-- City picker -->
+    <string name="config_title">Choose a city</string>
+    <string name="app_intro">Long-press an empty spot on your home screen → Widgets → Weather Card to add it. Tap the card to refresh, tap the city name to change city.</string>
+    <string name="current_city">Current: %s</string>
+    <string name="use_this_city">Use this city</string>
+    <string name="add_to_home">Add to home screen</string>
+    <string name="search_hint">City name, e.g. Shanghai</string>
+    <string name="search">Search</string>
+    <string name="use_location">📍 Use my location</string>
+    <string name="searching">Searching…</string>
+    <string name="locating">Locating…</string>
+    <string name="no_results">No matching city. Try another spelling.</string>
+    <string name="network_error">Network error: %s</string>
+    <string name="location_unavailable">Couldn\'t get your location. Make sure location services are on.</string>
+    <string name="location_denied">Location permission denied</string>
+    <string name="city_saved">Switched to %s</string>
+    <string name="attribution">Weather data by Open-Meteo.com (CC BY 4.0)</string>
+
+    <!-- WMO weather codes -->
+    <string name="w_clear">Clear</string>
+    <string name="w_mainly_clear">Mainly clear</string>
+    <string name="w_partly_cloudy">Partly cloudy</string>
+    <string name="w_overcast">Overcast</string>
+    <string name="w_fog">Fog</string>
+    <string name="w_rime_fog">Rime fog</string>
+    <string name="w_drizzle_light">Light drizzle</string>
+    <string name="w_drizzle">Drizzle</string>
+    <string name="w_drizzle_dense">Dense drizzle</string>
+    <string name="w_freezing_drizzle">Freezing drizzle</string>
+    <string name="w_rain_light">Light rain</string>
+    <string name="w_rain">Rain</string>
+    <string name="w_rain_heavy">Heavy rain</string>
+    <string name="w_freezing_rain">Freezing rain</string>
+    <string name="w_snow_light">Light snow</string>
+    <string name="w_snow">Snow</string>
+    <string name="w_snow_heavy">Heavy snow</string>
+    <string name="w_snow_grains">Snow grains</string>
+    <string name="w_showers_light">Light showers</string>
+    <string name="w_showers">Showers</string>
+    <string name="w_showers_heavy">Heavy showers</string>
+    <string name="w_snow_showers">Snow showers</string>
+    <string name="w_snow_showers_heavy">Heavy snow showers</string>
+    <string name="w_thunderstorm">Thunderstorm</string>
+    <string name="w_thunderstorm_hail">Thunderstorm, hail</string>
+    <string name="w_unknown">Unknown</string>
+</resources>

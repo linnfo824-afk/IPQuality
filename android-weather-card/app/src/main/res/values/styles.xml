@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="WidgetText">
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="WidgetText.Secondary">
+        <item name="android:textColor">#E0FFFFFF</item>
+    </style>
+
+    <style name="WidgetText.Temperature">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">天气卡片</string>
+    <string name="widget_name">天气卡片</string>
+    <string name="widget_description">实时天气与未来 5 天预报</string>
+    <string name="default_city">北京</string>
+    <string name="current_location">当前位置</string>
+
+    <!-- 卡片 -->
+    <string name="loading">加载中…</string>
+    <string name="load_failed">加载失败，点按重试</string>
+    <string name="updating">更新中…</string>
+    <string name="updated_at">%s 更新</string>
+    <string name="update_failed_at">更新失败 · %s</string>
+    <string name="high_low">↑%1$s ↓%2$s</string>
+    <string name="forecast_range">%1$s/%2$s</string>
+    <string name="feels_like_humidity">体感 %1$s · 湿度 %2$d%%</string>
+    <!-- %1$s = 风向，%2$d = 风速 km/h，%3$d = 风级 -->
+    <string name="wind_format">%1$s风 %3$d级</string>
+    <string name="wind_and_rain">%1$s · 降水 %2$d%%</string>
+    <string name="today">今天</string>
+    <string name="tomorrow">明天</string>
+    <string-array name="wind_directions">
+        <item>北</item>
+        <item>东北</item>
+        <item>东</item>
+        <item>东南</item>
+        <item>南</item>
+        <item>西南</item>
+        <item>西</item>
+        <item>西北</item>
+    </string-array>
+
+    <!-- 小部件选择器中的预览 -->
+    <string name="preview_status">10:30 更新</string>
+    <string name="preview_high_low">↑26° ↓15°</string>
+    <string name="preview_details" formatted="false">体感 22° · 湿度 45%</string>
+    <string name="preview_wind" formatted="false">东北风 3级 · 降水 10%</string>
+    <string name="preview_day2">周三</string>
+    <string name="preview_day3">周四</string>
+    <string name="preview_day4">周五</string>
+
+    <!-- 城市选择 -->
+    <string name="config_title">选择城市</string>
+    <string name="app_intro">长按桌面空白处 → 小部件（窗口小工具）→ 天气卡片，即可添加到桌面。点按卡片刷新，点按城市名切换城市。</string>
+    <string name="current_city">当前城市：%s</string>
+    <string name="use_this_city">使用此城市</string>
+    <string name="add_to_home">添加到桌面</string>
+    <string name="search_hint">输入城市名，如：上海、Shenzhen</string>
+    <string name="search">搜索</string>
+    <string name="use_location">📍 使用当前位置</string>
+    <string name="searching">正在搜索…</string>
+    <string name="locating">正在定位…</string>
+    <string name="no_results">没有找到匹配的城市，可以试试拼音或英文名</string>
+    <string name="network_error">网络错误：%s</string>
+    <string name="location_unavailable">无法获取位置，请确认已开启定位服务</string>
+    <string name="location_denied">未授予定位权限</string>
+    <string name="city_saved">已切换到 %s</string>
+    <string name="attribution">天气数据来源：Open-Meteo.com（CC BY 4.0）</string>
+
+    <!-- WMO 天气代码 -->
+    <string name="w_clear">晴</string>
+    <string name="w_mainly_clear">晴间少云</string>
+    <string name="w_partly_cloudy">多云</string>
+    <string name="w_overcast">阴</string>
+    <string name="w_fog">雾</string>
+    <string name="w_rime_fog">雾凇</string>
+    <string name="w_drizzle_light">小毛毛雨</string>
+    <string name="w_drizzle">毛毛雨</string>
+    <string name="w_drizzle_dense">大毛毛雨</string>
+    <string name="w_freezing_drizzle">冻毛毛雨</string>
+    <string name="w_rain_light">小雨</string>
+    <string name="w_rain">中雨</string>
+    <string name="w_rain_heavy">大雨</string>
+    <string name="w_freezing_rain">冻雨</string>
+    <string name="w_snow_light">小雪</string>
+    <string name="w_snow">中雪</string>
+    <string name="w_snow_heavy">大雪</string>
+    <string name="w_snow_grains">米雪</string>
+    <string name="w_showers_light">小阵雨</string>
+    <string name="w_showers">阵雨</string>
+    <string name="w_showers_heavy">强阵雨</string>
+    <string name="w_snow_showers">阵雪</string>
+    <string name="w_snow_showers_heavy">强阵雪</string>
+    <string name="w_thunderstorm">雷阵雨</string>
+    <string name="w_thunderstorm_hail">雷阵雨伴冰雹</string>
+    <string name="w_unknown">未知</string>
+</resources>

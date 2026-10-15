@@ -1,0 +1,42 @@
+name: Android Weather Card
+
+on:
+  push:
+    paths:
+      - "android-weather-card/**"
+      - ".github/workflows/android-weather-card.yml"
+  pull_request:
+    paths:
+      - "android-weather-card/**"
+      - ".github/workflows/android-weather-card.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android-weather-card
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK
+        run: ./gradlew --no-daemon assembleDebug assembleRelease
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: weather-card-apk
+          path: |
+            android-weather-card/app/build/outputs/apk/release/app-release.apk
+            android-weather-card/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
